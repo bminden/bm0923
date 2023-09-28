@@ -4,58 +4,63 @@ public class Tool {
     private String code;
     private String type;
     private String brand;
-    private Long weekday;
-    private Long weekend;
-    private Long holiday;
+    private boolean weekday;
+    private boolean weekend;
+    private boolean holiday;
+    private int dailyRate;
     
     public Tool(String code){
         this.code = code;
         if(code.toUpperCase().equals("LADW")){
             this.type = "Ladder";
             this.brand = "Werner";
-            this.weekday = 199L;
-            this.weekend = 199L;
-            this.holiday = 0L;
+            this.weekday = true;
+            this.weekend = true;
+            this.holiday = false;
+            this.dailyRate = 199;
         }else if(code.toUpperCase().equals("CHNS")){
             this.type = "Chainsaw";
             this.brand = "Stihl";
-            this.weekday = 149L;
-            this.weekend = 0L;
-            this.holiday = 149L;
+            this.weekday = true;
+            this.weekend = false;
+            this.holiday = true;
+            this.dailyRate = 149;
         }else if(code.toUpperCase().equals("JAKD")){
             this.type = "Jackhammer";
             this.brand = "DeWalt";
-            this.weekday = 299L;
-            this.weekend = 0L;
-            this.holiday = 0L;
+            this.weekday = true;
+            this.weekend = false;
+            this.holiday = false;
+            this.dailyRate = 299;
         }else if(code.toUpperCase().equals("JAKR")){
             this.type = "Jackhammer";
             this.brand = "Ridgid";
-            this.weekday = 299L;
-            this.weekend = 0L;
-            this.holiday = 0L;
+            this.weekday = true;
+            this.weekend = false;
+            this.holiday = false;
+            this.dailyRate = 299;
         }
     }
 
-    public long getWeekdayCharge(){
-        if(!weekday.equals(0L)){
-            return weekday;
+    public int getWeekdayCharge(){
+        if(weekday){
+            return dailyRate;
         }
-        return 0L;
+        return 0;
     }
 
-    public long getWeekendCharge(){
-        if(!weekend.equals(0L)){
-            return weekend;
+    public int getWeekendCharge(){
+        if(weekend){
+            return dailyRate;
         }
-        return 0L;
+        return 0;
     }
 
-    public long getHolidayCharge(){
-        if(!holiday.equals(0L)){
-            return holiday;
+    public int getHolidayCharge(){
+        if(holiday){
+            return dailyRate;
         }
-        return 0L;
+        return 0;
     }
 
     public String getCode(){
@@ -70,4 +75,11 @@ public class Tool {
         return brand;
     }
 
+    public String toString(){
+        String toolString = "Tool Code: " + code + "\n";
+        toolString += "Tool Type: " + type + "\n";
+        toolString += "Tool Brand: " + brand + "\n";
+        toolString += "Tool Daily Rate: " + dailyRate + "\n";
+        return toolString;
+    }
 }
