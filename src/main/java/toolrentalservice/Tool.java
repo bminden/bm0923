@@ -1,5 +1,8 @@
 package toolrentalservice;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+
 public class Tool {
     private String code;
     private String type;
@@ -7,7 +10,7 @@ public class Tool {
     private boolean weekday;
     private boolean weekend;
     private boolean holiday;
-    private int dailyRate;
+    private BigDecimal dailyRate;
     
     public Tool(String code){
         this.code = code;
@@ -17,50 +20,50 @@ public class Tool {
             this.weekday = true;
             this.weekend = true;
             this.holiday = false;
-            this.dailyRate = 199;
+            this.dailyRate = new BigDecimal(1.99);
         }else if(code.toUpperCase().equals("CHNS")){
             this.type = "Chainsaw";
             this.brand = "Stihl";
             this.weekday = true;
             this.weekend = false;
             this.holiday = true;
-            this.dailyRate = 149;
+            this.dailyRate = new BigDecimal(1.49);
         }else if(code.toUpperCase().equals("JAKD")){
             this.type = "Jackhammer";
             this.brand = "DeWalt";
             this.weekday = true;
             this.weekend = false;
             this.holiday = false;
-            this.dailyRate = 299;
+            this.dailyRate = new BigDecimal(299);
         }else if(code.toUpperCase().equals("JAKR")){
             this.type = "Jackhammer";
             this.brand = "Ridgid";
             this.weekday = true;
             this.weekend = false;
             this.holiday = false;
-            this.dailyRate = 299;
+            this.dailyRate = new BigDecimal(299);
         }
     }
 
-    public int getWeekdayCharge(){
+    public BigDecimal getWeekdayCharge(){
         if(weekday){
-            return dailyRate;
+            return getDailyRate();
         }
-        return 0;
+        return new BigDecimal(0);
     }
 
-    public int getWeekendCharge(){
+    public BigDecimal getWeekendCharge(){
         if(weekend){
-            return dailyRate;
+            return getDailyRate();
         }
-        return 0;
+       return new BigDecimal(0);
     }
 
-    public int getHolidayCharge(){
+    public BigDecimal getHolidayCharge(){
         if(holiday){
-            return dailyRate;
+            return getDailyRate();
         }
-        return 0;
+        return new BigDecimal(0);
     }
 
     public String getCode(){
@@ -75,11 +78,17 @@ public class Tool {
         return brand;
     }
 
+    public BigDecimal getDailyRate(){
+        BigDecimal afterDecimal = dailyRate.remainder(BigDecimal.ONE);
+
+        return dailyRate.subtract(afterDecimal).add(afterDecimal.round(new MathContext(3, java.math.RoundingMode.HALF_UP))).stripTrailingZeros();
+    }
+
     public String toString(){
         String toolString = "Tool Code: " + code + "\n";
         toolString += "Tool Type: " + type + "\n";
         toolString += "Tool Brand: " + brand + "\n";
-        toolString += "Tool Daily Rate: " + dailyRate + "\n";
+        toolString += "Tool Daily Rate: " + getDailyRate() + "\n";
         return toolString;
     }
 }

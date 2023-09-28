@@ -2,6 +2,7 @@ package toolrentalservice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,8 +15,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 public class ChargeCalculatorTest{
     private final static Tool LADW = new Tool("LADW"); // Using the ladder because its easiest to manually check because it only isn't charged on holidays
-    private final static long LADDERCHARGE = 199L;
-    private final static long NOCHARGE = 0L;
+    private final static String LADDERCHARGE = "1.99";
+    private final static String NOCHARGE = "0";
 
     private static Stream<Arguments> dates(){
         return Stream.of(
@@ -34,23 +35,23 @@ public class ChargeCalculatorTest{
 
     private static Stream<Arguments> rentals(){
         return Stream.of(
-            Arguments.of(LADW, "2020-07-06", 3, 597L),
-            Arguments.of(LADW, "2023-09-23", 1, 199L),
-            Arguments.of(LADW, "2023-09-04", 365, 72038L), //This range includes one July 4th and two Labor days. So 365 - 3 = 362 and 362 * 199 = 72038
-            Arguments.of(LADW, "2024-09-02", 5, 796L)
+            Arguments.of(LADW, "2020-07-06", 3, "5.97"),
+            Arguments.of(LADW, "2023-09-23", 1, "1.99"),
+            Arguments.of(LADW, "2023-09-04", 365, "720.38"), //This range includes one July 4th and two Labor days. So 365 - 3 = 362 and 362 * 199 = 72038
+            Arguments.of(LADW, "2024-09-02", 5, "7.96")
             );
         }
 
     @ParameterizedTest
     @MethodSource("dates")
-    public void determineChargeTest(Tool tool, String dateString, long expectedCharge){
-        assertEquals(expectedCharge, ChargeCalculator.determineCharge(tool, createDate(dateString)));
+    public void determineChargeTest(Tool tool, String dateString, String expectedCharge){
+        assertEquals(new BigDecimal(expectedCharge), ChargeCalculator.determineCharge(tool, createDate(dateString)));
     }
 
     @ParameterizedTest
     @MethodSource("rentals")
-    public void calculateChargeTest(Tool tool, String dateString, int rentalDays, long expectedCharge){
-        assertEquals(expectedCharge, ChargeCalculator.calculatePrediscountCharges(tool, createDate(dateString), rentalDays));
+    public void calculateChargeTest(Tool tool, String dateString, int rentalDays, String expectedCharge){
+        assertEquals(new BigDecimal(expectedCharge), ChargeCalculator.calculatePrediscountCharges(tool, createDate(dateString), rentalDays));
     }
 
     private Date createDate(String dateString){

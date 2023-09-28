@@ -1,20 +1,28 @@
 package toolrentalservice;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Calendar;
 import java.util.Date;
 
 public class ChargeCalculator {
-    public static long calculatePrediscountCharges(Tool tool, Date startDate, int rentalDays){
-        long total = 0L;
+    public static BigDecimal calculatePrediscountCharges(Tool tool, Date startDate, int rentalDays){
+        BigDecimal total = new BigDecimal(0);
         Date currDate = startDate;
         for(int x = 0; x < rentalDays; x++){
-            total += determineCharge(tool, currDate);
+            total = total.add(determineCharge(tool, currDate));
             currDate = addDay(currDate, 1);
         }
-        return total;
+        return formatRate(total);
     }
 
-    public static long determineCharge(Tool tool, Date date){
+    private static BigDecimal formatRate(BigDecimal rate) {
+        BigDecimal afterDecimal = rate.remainder(BigDecimal.ONE);
+
+        return rate.subtract(afterDecimal).add(afterDecimal.round(new MathContext(3, java.math.RoundingMode.HALF_UP))).stripTrailingZeros();
+    }
+
+    public static BigDecimal determineCharge(Tool tool, Date date){
         if(isAHoliday(date)){
             return tool.getHolidayCharge();
         }else{
