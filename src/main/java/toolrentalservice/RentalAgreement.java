@@ -2,7 +2,6 @@ package toolrentalservice;
 
 import java.util.Date;
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 public class RentalAgreement{
     private Tool tool;
