@@ -30,11 +30,8 @@ application {
     mainClass = 'tool-rental-service.App'
 }
 
-tasks.named('test') {
-    // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
-}
-
 test {
+    useJUnitPlatform()
     finalizedBy jacocoTestReport
+    println("See Jacoco Report at: " + projectDir + "\\build\\reports\\jacoco\\test\\html\\toolrentalservice\\index.html")
 }

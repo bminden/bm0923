@@ -1,11 +1,13 @@
 package toolrentalservice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Currency;
 import java.util.Date;
 import java.util.stream.Stream;
 
@@ -45,13 +47,17 @@ public class ChargeCalculatorTest{
     @ParameterizedTest
     @MethodSource("dates")
     public void determineChargeTest(Tool tool, String dateString, String expectedCharge){
-        assertEquals(new BigDecimal(expectedCharge), ChargeCalculator.determineCharge(tool, createDate(dateString)));
+        BigDecimal expectedAmount = new Money(expectedCharge, Currency.getInstance("USD")).getAmount();
+        BigDecimal amount = ChargeCalculator.determineCharge(tool, createDate(dateString)).getAmount();
+        assertTrue(expectedAmount.equals(amount));
     }
 
     @ParameterizedTest
     @MethodSource("rentals")
     public void calculateChargeTest(Tool tool, String dateString, int rentalDays, String expectedCharge){
-        assertEquals(new BigDecimal(expectedCharge), ChargeCalculator.calculatePrediscountCharges(tool, createDate(dateString), rentalDays));
+        BigDecimal expectedAmount = new Money(expectedCharge, Currency.getInstance("USD")).getAmount();
+        BigDecimal amount = ChargeCalculator.calculatePrediscountCharges(tool, createDate(dateString), rentalDays).getAmount();
+        assertTrue(expectedAmount.equals(amount));
     }
 
     private Date createDate(String dateString){

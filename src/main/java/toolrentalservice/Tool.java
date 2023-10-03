@@ -2,6 +2,7 @@ package toolrentalservice;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Currency;
 
 public class Tool {
     private String code;
@@ -10,7 +11,7 @@ public class Tool {
     private boolean weekday;
     private boolean weekend;
     private boolean holiday;
-    private BigDecimal dailyRate;
+    private Money dailyRate;
     
     public Tool(String code){
         this.code = code;
@@ -20,50 +21,52 @@ public class Tool {
             this.weekday = true;
             this.weekend = true;
             this.holiday = false;
-            this.dailyRate = new BigDecimal(1.99);
+            this.dailyRate = new Money("1.99", Currency.getInstance("USD"));
         }else if(code.toUpperCase().equals("CHNS")){
             this.type = "Chainsaw";
             this.brand = "Stihl";
             this.weekday = true;
             this.weekend = false;
             this.holiday = true;
-            this.dailyRate = new BigDecimal(1.49);
+            this.dailyRate = new Money("1.49", Currency.getInstance("USD"));
+
         }else if(code.toUpperCase().equals("JAKD")){
             this.type = "Jackhammer";
             this.brand = "DeWalt";
             this.weekday = true;
             this.weekend = false;
             this.holiday = false;
-            this.dailyRate = new BigDecimal(299);
+            this.dailyRate = new Money("2.99", Currency.getInstance("USD"));
+
         }else if(code.toUpperCase().equals("JAKR")){
             this.type = "Jackhammer";
             this.brand = "Ridgid";
             this.weekday = true;
             this.weekend = false;
             this.holiday = false;
-            this.dailyRate = new BigDecimal(299);
+            this.dailyRate = new Money("2.99", Currency.getInstance("USD"));
         }
     }
 
-    public BigDecimal getWeekdayCharge(){
+    public Money getWeekdayCharge(){
         if(weekday){
             return getDailyRate();
         }
-        return new BigDecimal(0);
+        return new Money("0.00", Currency.getInstance("USD"));
     }
 
-    public BigDecimal getWeekendCharge(){
+    public Money getWeekendCharge(){
         if(weekend){
             return getDailyRate();
         }
-       return new BigDecimal(0);
+       return new Money("0.00", Currency.getInstance("USD"));
     }
 
-    public BigDecimal getHolidayCharge(){
+    public Money getHolidayCharge(){
         if(holiday){
             return getDailyRate();
         }
-        return new BigDecimal(0);
+        return new Money("0.00", Currency.getInstance("USD"));
     }
 
     public String getCode(){
@@ -78,10 +81,8 @@ public class Tool {
         return brand;
     }
 
-    public BigDecimal getDailyRate(){
-        BigDecimal afterDecimal = dailyRate.remainder(BigDecimal.ONE);
-
-        return dailyRate.subtract(afterDecimal).add(afterDecimal.round(new MathContext(3, java.math.RoundingMode.HALF_UP))).stripTrailingZeros();
+    public Money getDailyRate(){
+        return dailyRate;
     }
 
     public String toString(){
