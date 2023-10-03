@@ -1,7 +1,5 @@
 package toolrentalservice;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Currency;
 
 public class Tool {
