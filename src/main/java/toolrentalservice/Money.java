@@ -13,6 +13,11 @@ public class Money {
         this.currency = currency;
     }
 
+    public Money(BigDecimal amount, Currency currency){
+        this.amount = amount;
+        this.currency = currency;
+    }
+
     public BigDecimal getAmount(){
         return amount;
     }
@@ -21,12 +26,16 @@ public class Money {
         return currency;
     }
 
-    public void add(Money amountToAdd){
-        this.amount = this.amount.add(amountToAdd.getAmount());
+    public Money add(Money amountToAdd){
+        return new Money(this.amount.add(amountToAdd.getAmount()).toString(), this.currency);
     }
 
-    public void multiple(Money multiplier){
-        this.amount = this.amount.multiply(multiplier.getAmount()).setScale(2, RoundingMode.HALF_UP);
+    public Money subtract(Money amountToAdd){
+        return new Money(this.amount.subtract(amountToAdd.getAmount()).toString(), this.currency);
+    }
+
+    public Money multiply(Money multiplier){
+        return new Money(this.amount.multiply(multiplier.getAmount()).setScale(2, RoundingMode.HALF_UP), this.currency);
     }
 
     private BigDecimal setBigDecimalRulesBasedOnCurrency(String amount, Currency currency){

@@ -1,7 +1,6 @@
 package toolrentalservice;
 
 import java.util.Date;
-import java.math.BigDecimal;
 
 public class RentalAgreement{
     private Tool tool;
@@ -9,12 +8,12 @@ public class RentalAgreement{
     private Date dueDate;
     private int rentalDays;
     private int chargeDays;
-    private BigDecimal prediscountCharge;
+    private Money prediscountCharge;
     private int discountPercent;
-    private int totalDiscount;
-    private BigDecimal finalCharge;
+    private Money totalDiscount;
+    private Money finalCharge;
 
-    public RentalAgreement(Tool tool, Date checkoutDate, Date dueDate, int rentalDays, int chargeDays, BigDecimal prediscountCharge, int discountPercent, int totalDiscount, BigDecimal finalCharge){
+    public RentalAgreement(Tool tool, Date checkoutDate, Date dueDate, int rentalDays, int chargeDays, Money prediscountCharge, int discountPercent, Money totalDiscount, Money finalCharge){
         this.tool = tool;
         this.checkoutDate = checkoutDate;
         this.dueDate = dueDate;
@@ -32,16 +31,20 @@ public class RentalAgreement{
         rentalAgreementString += "Due Date: " + dueDate.toString() + "\n";
         rentalAgreementString += "Rental Days: " + rentalDays + "\n";
         rentalAgreementString += "Charge Days: " + chargeDays + "\n";
-        rentalAgreementString += "Prediscount Charge: " + prediscountCharge + "\n";
+        rentalAgreementString += "Prediscount Charge: " + prediscountCharge.getAmount() + "\n";
         rentalAgreementString += "Discount Percent: " + discountPercent + "\n";
-        rentalAgreementString += "Total Discount: " + totalDiscount + "\n";
-        rentalAgreementString += "Final Charge: " + finalCharge + "\n";
+        rentalAgreementString += "Total Discount: " + totalDiscount.getAmount() + "\n";
+        rentalAgreementString += "Final Charge: " + finalCharge.getAmount() + "\n";
 
         return rentalAgreementString;
     }
 
     public void print(){
         System.out.println(this.toString());
+    }
+
+    public Money getFinalCharge(){
+        return finalCharge;
     }
     
 }

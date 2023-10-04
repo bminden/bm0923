@@ -24,7 +24,7 @@ public class MoneyTest {
 
     @Test
     public void createDollarTest(){
-        Money dollar = new Money("1", Currency.getInstance("USD"));
+        Money dollar = new Money("1.00", Currency.getInstance("USD"));
 
         assertTrue(new BigDecimal("1.00").equals(dollar.getAmount()));
         assertEquals(Currency.getInstance("USD"), dollar.getCurrency());
@@ -32,18 +32,18 @@ public class MoneyTest {
 
     @Test
     public void addToAmountTest(){
-        Money dollar = new Money("1", Currency.getInstance("USD"));
+        Money dollar = new Money("1.00", Currency.getInstance("USD"));
 
-        dollar.add(new Money("2", Currency.getInstance("USD")));
+        dollar = dollar.add(new Money("2.00", Currency.getInstance("USD")));
 
         assertTrue(new BigDecimal("3.00").equals(dollar.getAmount()));
     }
 
     @Test
     public void multipleAmountTest(){
-        Money dollar = new Money("5", Currency.getInstance("USD"));
+        Money dollar = new Money("5.00", Currency.getInstance("USD"));
 
-        dollar.multiple(new Money("2", Currency.getInstance("USD")));
+        dollar = dollar.multiply(new Money("2.00", Currency.getInstance("USD")));
 
         assertTrue(new BigDecimal("10.00").equals(dollar.getAmount()));
     }

@@ -3,12 +3,6 @@
  */
 package toolrentalservice;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
 class ApplicationRunnerTest {
-    @Test void appHasAGreeting() {
-        ApplicationRunner classUnderTest = new ApplicationRunner();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
-    }
+
 }

@@ -5,15 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Currency;
 import java.util.Date;
-import java.math.BigDecimal;
-import java.math.MathContext;
 
 import org.junit.jupiter.api.Test;
 
 public class RentalAgreementTest {
     private final static Tool LADW = new Tool("LADW");
-    private final RentalAgreement rentalAgreement = new RentalAgreement(LADW, createDate("2020-07-06"), createDate("2020-07-09"), 3, 3, getDailyRate(new BigDecimal(597)), 0, 0, getDailyRate(new BigDecimal(5.97)));
+    private final RentalAgreement rentalAgreement = new RentalAgreement(
+        LADW, 
+        createDate("2023-10-03"), 
+        createDate("2023-10-05"), 
+        2, 
+        3, 
+        new Money("5.97", Currency.getInstance("USD")), 
+        0, 
+        new Money("0.00", Currency.getInstance("USD")),
+        new Money("5.97", Currency.getInstance("USD")));
 
     @Test
     public void testToString(){
@@ -31,10 +39,5 @@ public class RentalAgreementTest {
             e.printStackTrace();
         }
         return new Date();
-    }
-    
-    public BigDecimal getDailyRate(BigDecimal dailyRate){
-        BigDecimal afterDecimal = dailyRate.remainder(BigDecimal.ONE);
-        return dailyRate.subtract(afterDecimal).add(afterDecimal.round(new MathContext(3, java.math.RoundingMode.HALF_UP))).stripTrailingZeros();
     }
 }

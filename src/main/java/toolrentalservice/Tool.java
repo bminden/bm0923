@@ -46,25 +46,16 @@ public class Tool {
         }
     }
 
-    public Money getWeekdayCharge(){
-        if(weekday){
-            return getDailyRate();
-        }
-        return new Money("0.00", Currency.getInstance("USD"));
+    public boolean isWeekdayChargeable(){
+        return weekday;
     }
 
-    public Money getWeekendCharge(){
-        if(weekend){
-            return getDailyRate();
-        }
-       return new Money("0.00", Currency.getInstance("USD"));
+    public boolean isWeekendChargeable(){
+        return weekend;
     }
 
-    public Money getHolidayCharge(){
-        if(holiday){
-            return getDailyRate();
-        }
-        return new Money("0.00", Currency.getInstance("USD"));
+    public boolean isHolidayChargeable(){
+        return holiday;
     }
 
     public String getCode(){
