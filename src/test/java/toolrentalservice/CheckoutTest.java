@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.stream.Stream;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -35,9 +34,9 @@ public class CheckoutTest {
 
     @ParameterizedTest
     @MethodSource("finalRentals")
-    public void calculateFinalChargeTest(String toolString, String checkoutDate, int rentalDays, int discount, String expectedCharge, Class exception){
+    public void calculateFinalChargeTest(String toolString, String checkoutDate, int rentalDays, int discount, String expectedCharge, Class<? extends Throwable> exception){
         if(exception != null){
-            assertThrows(exception, () -> new Checkout(toolString, rentalDays, discount, checkoutDate));
+            assertThrows(exception.asSubclass(Throwable.class), () -> new Checkout(toolString, rentalDays, discount, checkoutDate));
         }else{
             Checkout checkout = new Checkout(toolString, rentalDays, discount, checkoutDate);
             BigDecimal expectedAmount = new Money(expectedCharge, Currency.getInstance("USD")).getAmount();
