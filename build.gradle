@@ -20,5 +20,5 @@ application {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
-    println("See Jacoco Report at: " + projectDir + "\\build\\reports\\jacoco\\test\\html\\toolrentalservice\\index.html")
+    println("See Jacoco Report at: file:///" + projectDir + "\\build\\reports\\jacoco\\test\\html\\toolrentalservice\\index.html")
 }
