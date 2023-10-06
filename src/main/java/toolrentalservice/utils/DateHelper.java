@@ -1,4 +1,4 @@
-package toolrentalservice;
+package toolrentalservice.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -81,7 +81,7 @@ public class DateHelper {
             return sdf.parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
+            throw new IllegalArgumentException("Invalid date string.");
         }
-        return new Date();
     }
 }

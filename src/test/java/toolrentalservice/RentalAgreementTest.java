@@ -6,6 +6,8 @@ import java.util.Currency;
 
 import org.junit.jupiter.api.Test;
 
+import toolrentalservice.utils.DateHelper;
+
 public class RentalAgreementTest {
     private final static Tool LADW = new Tool("LADW");
     private final RentalAgreement rentalAgreement = new RentalAgreement(

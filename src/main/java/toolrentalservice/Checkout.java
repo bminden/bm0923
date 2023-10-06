@@ -1,5 +1,8 @@
 package toolrentalservice;
 
+import toolrentalservice.utils.ChargeCalculator;
+import toolrentalservice.utils.DateHelper;
+
 public class Checkout {
     public String toolCode;
     public int rentalDayCount;

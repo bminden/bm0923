@@ -1,8 +1,12 @@
-package toolrentalservice;
+package toolrentalservice.utils;
 
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
+
+import toolrentalservice.RentalAgreement;
+import toolrentalservice.Tool;
+import toolrentalservice.Money;
 
 public class ChargeCalculator {
     public static int calculateChargeDays(Tool tool, Date startDate, int rentalDays){

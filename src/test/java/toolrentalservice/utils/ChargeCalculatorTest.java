@@ -1,4 +1,4 @@
-package toolrentalservice;
+package toolrentalservice.utils;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -9,6 +9,11 @@ import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import toolrentalservice.Money;
+import toolrentalservice.Tool;
+import toolrentalservice.utils.ChargeCalculator;
+import toolrentalservice.utils.DateHelper;
 
 public class ChargeCalculatorTest{
     private static Stream<Arguments> finalRentals(){
