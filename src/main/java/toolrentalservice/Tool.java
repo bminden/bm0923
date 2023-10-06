@@ -78,7 +78,7 @@ public class Tool {
         String toolString = "Tool Code: " + code + "\n";
         toolString += "Tool Type: " + type + "\n";
         toolString += "Tool Brand: " + brand + "\n";
-        toolString += "Tool Daily Rate: " + getDailyRate() + "\n";
+        toolString += "Daily Rental Charge: " + getDailyRate().getAmount() + "\n";
         return toolString;
     }
 }
