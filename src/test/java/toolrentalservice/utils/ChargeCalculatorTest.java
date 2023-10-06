@@ -12,8 +12,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import toolrentalservice.Money;
 import toolrentalservice.Tool;
-import toolrentalservice.utils.ChargeCalculator;
-import toolrentalservice.utils.DateHelper;
 
 public class ChargeCalculatorTest{
     private static Stream<Arguments> finalRentals(){
